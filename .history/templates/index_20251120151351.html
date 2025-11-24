@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa de Antenas MQTT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonte moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Barra superior -->
+    <header class="app-header">
+      <div class="app-title-group">
+        <div class="app-logo">MQ</div>
+        <div>
+          <h1 class="app-title">Mapa de Antenas MQTT</h1>
+          <p class="app-subtitle">Faça upload da planta e visualize as antenas sobre o mapa.</p>
+        </div>
+      </div>
+      <div class="app-header-actions">
+        <span class="badge badge-soft">v1.0</span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Coluna esquerda: upload/config -->
+      <section class="card card-config">
+        <h2 class="card-title">Imagem de fundo</h2>
+        <p class="card-description">
+          Envie uma planta em <strong>SVG</strong>, <strong>PNG</strong> ou <strong>JPG</strong>. Ela será usada como fundo do mapa.
+        </p>
+
+        <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data" class="upload-form">
+          <label for="background" class="upload-label">
+            <span class="upload-label-title">Selecionar arquivo</span>
+            <span class="upload-label-subtitle">Clique para escolher uma imagem do seu computador</span>
+          </label>
+          <input
+            type="file"
+            id="background"
+            name="background"
+            accept=".svg,.png,.jpg,.jpeg"
+            required
+          >
+
+          <button type="submit" class="btn-primary">
+            Enviar imagem
+          </button>
+        </form>
+
+        {% if background_url %}
+          <div class="current-image-info">
+            <span class="dot dot-success"></span>
+            <span>Uma imagem de fundo está em uso no momento.</span>
+          </div>
+        {% else %}
+          <div class="current-image-info">
+            <span class="dot dot-muted"></span>
+            <span>Nenhuma imagem enviada ainda.</span>
+          </div>
+        {% endif %}
+      </section>
+
+      <!-- Coluna direita: preview do mapa -->
+      <section class="card card-map">
+        <div class="card-header-row">
+          <h2 class="card-title">Pré-visualização</h2>
+          <span class="badge badge-soft">Somente leitura (por enquanto)</span>
+        </div>
+
+        <div class="map-wrapper">
+          <div class="map-container">
+            {% if background_url %}
+              <div class="map-background"
+                   style="background-image: url('{{ background_url }}');">
+              </div>
+            {% else %}
+              <div class="map-background placeholder">
+                <div class="placeholder-content">
+                  <div class="placeholder-icon">🗺️</div>
+                  <p>Envie uma planta para visualizar o mapa aqui.</p>
+                </div>
+              </div>
+            {% endif %}
+
+            <!-- Camada das antenas: por enquanto só exemplo visual -->
+            <div class="antennas-layer">
+              <div class="antenna" style="left: 18%; top: 30%;"></div>
+              <div class="antenna" style="left: 55%; top: 60%;"></div>
+              <div class="antenna" style="left: 78%; top: 40%;"></div>
+            </div>
+          </div>
+
+          <p class="map-hint">
+            Em breve: as antenas serão posicionadas dinamicamente com base nas mensagens MQTT.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

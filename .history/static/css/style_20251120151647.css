@@ -1,0 +1,268 @@
+:root {
+  --bg-body: #f3f4f6;
+  --bg-card: #ffffff;
+  --border-subtle: #e5e7eb;
+  --border-strong: #d1d5db;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.08);
+  --accent-strong: #2563eb;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-soft: #9ca3af;
+  --success: #16a34a;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+/* ===== Reset leve ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #ffffff 0, #f3f4f6 40%, #e5e7eb 100%);
+  color: var(--text-main);
+}
+
+/* ===== Shell geral do app ===== */
+.app-shell {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 28px 16px 40px;
+}
+
+/* ===== Layout principal ===== */
+.app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.7fr);
+  gap: 20px;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Cards ===== */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 18px 20px;
+}
+
+.card-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.card-description {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* ===== Upload ===== */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Esconde o input nativo */
+.upload-form input[type="file"] {
+  display: none;
+}
+
+/* Área clicável estilizada */
+.upload-label {
+  border-radius: 12px;
+  border: 1px dashed var(--border-strong);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: border-color 0.18s ease, background 0.18s ease,
+    box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.upload-label:hover {
+  border-color: var(--accent);
+  background: #f3f4ff;
+  box-shadow: 0 10px 24px rgba(148, 163, 184, 0.25);
+  transform: translateY(-1px);
+}
+
+.upload-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.upload-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.upload-label-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.upload-label-subtitle {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+/* Botão primário */
+.btn-primary {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  color: #ffffff;
+  box-shadow: 0 10px 26px rgba(59, 130, 246, 0.35);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(59, 130, 246, 0.4);
+  filter: brightness(1.03);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 18px rgba(59, 130, 246, 0.35);
+}
+
+/* Info da imagem atual */
+.current-image-info {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.dot-success {
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+.dot-muted {
+  background: #d1d5db;
+}
+
+/* ===== Mapa ===== */
+.card-map {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-wrapper {
+  margin-top: 6px;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: #f9fafb;
+}
+
+/* Fundo da planta */
+.map-background {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.map-background.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-content {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.placeholder-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+/* Camada das antenas */
+.antennas-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* “Ícones” das antenas */
+.antenna {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #f97316, #f97316);
+  border: 2px solid #ffffff;
+  box-shadow:
+    0 0 0 5px rgba(249, 115, 22, 0.22),
+    0 0 18px rgba(248, 113, 22, 0.55);
+}
+
+/* Hint abaixo do mapa */
+.map-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}

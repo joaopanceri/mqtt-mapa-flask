@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonte moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <main class="app-main">
+      <!-- Único card com aba de upload + mapa -->
+      <section class="card card-map">
+        <!-- Aba “oculta” acima do mapa -->
+        <div class="upload-tab" id="upload-tab">
+          <div class="upload-tab-label">
+            <span class="upload-tab-icon">🖼️</span>
+            <span>Imagem de fundo</span>
+          </div>
+          <div class="upload-tab-chevron" id="upload-chevron">⌄</div>
+        </div>
+
+        <!-- Painel de upload que abre/fecha -->
+        <div class="upload-panel" id="upload-panel">
+          <form action="{{ url_for('index') }}" method="post"
+                enctype="multipart/form-data"
+                class="upload-form upload-form-inline">
+            <label for="background" class="upload-label">
+              <div class="upload-icon">📁</div>
+              <div class="upload-texts">
+                <span class="upload-label-title">Selecionar arquivo</span>
+                <span class="upload-label-subtitle">SVG, PNG ou JPG</span>
+              </div>
+            </label>
+
+            <input
+              type="file"
+              id="background"
+              name="background"
+              accept=".svg,.png,.jpg,.jpeg"
+              required
+            >
+
+            <button type="submit" class="btn-primary">
+              Usar esta imagem
+            </button>
+
+            <div class="current-image-info current-image-inline">
+              {% if background_url %}
+                <span class="dot dot-success"></span>
+                <span>Imagem carregada.</span>
+              {% else %}
+                <span class="dot dot-muted"></span>
+                <span>Nenhuma imagem.</span>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+
+        <!-- Cabeçalho do mapa -->
+        <div class="card-header-row">
+          <h2 class="card-title">Mapa</h2>
+        </div>
+
+        <!-- Área do mapa -->
+        <div class="map-wrapper">
+          <div class="map-container">
+            {% if background_url %}
+              <div class="map-background"
+                   style="background-image: url('{{ background_url }}');">
+              </div>
+            {% else %}
+              <div class="map-background placeholder">
+                <div class="placeholder-content">
+                  <div class="placeholder-icon">🗺️</div>
+                  <p>Use a aba acima para carregar uma imagem.</p>
+                </div>
+              </div>
+            {% endif %}
+
+            <!-- Camada das antenas (exemplo visual) -->
+            <div class="antennas-layer">
+              <div class="antenna" style="left: 18%; top: 30%;"></div>
+              <div class="antenna" style="left: 55%; top: 60%;"></div>
+              <div class="antenna" style="left: 78%; top: 40%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Toggle da aba de upload
+    const uploadTab = document.getElementById('upload-tab');
+    const uploadPanel = document.getElementById('upload-panel');
+    const chevron = document.getElementById('upload-chevron');
+
+    if (uploadTab && uploadPanel && chevron) {
+      uploadTab.addEventListener('click', () => {
+        uploadPanel.classList.toggle('open');
+        uploadTab.classList.toggle('open');
+        chevron.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+body {
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.map-container {
+  position: relative;
+  width: 800px;   /* você pode ajustar ou tornar responsivo depois */
+  height: 600px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+/* Fundo onde o usuário coloca o mapa/planta */
+.map-background {
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background-size: contain;  /* mantém proporção */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.map-background.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  background-color: #f0f0f0;
+}
+
+/* Camada das antenas por cima do mapa */
+.antennas-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* as antenas não bloqueiam o fundo, se quiser */
+}
+
+/* “icone” de antena simples, só para ter algo visual */
+.antenna {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: red;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonte moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+
+    <main class="app-main">
+      <!-- Barra de upload em cima do mapa -->
+      <section class="card card-config">
+        <h2 class="card-title">Imagem de fundo</h2>
+
+        <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data"
+              class="upload-form upload-form-inline">
+          <label for="background" class="upload-label">
+            <div class="upload-icon">📁</div>
+            <div class="upload-texts">
+              <span class="upload-label-title">Selecionar arquivo</span>
+              <span class="upload-label-subtitle">SVG, PNG ou JPG</span>
+            </div>
+          </label>
+
+          <input
+            type="file"
+            id="background"
+            name="background"
+            accept=".svg,.png,.jpg,.jpeg"
+            required
+          >
+
+          <button type="submit" class="btn-primary">
+            Usar esta imagem
+          </button>
+
+          <div class="current-image-info current-image-inline">
+            {% if background_url %}
+              <span class="dot dot-success"></span>
+              <span>Imagem carregada.</span>
+            {% else %}
+              <span class="dot dot-muted"></span>
+              <span>Nenhuma imagem.</span>
+            {% endif %}
+          </div>
+        </form>
+      </section>
+
+      <!-- Mapa abaixo -->
+      <section class="card card-map">
+        <div class="card-header-row">
+          <h2 class="card-title">Mapa</h2>
+        </div>
+
+        <div class="map-wrapper">
+          <div class="map-container">
+            {% if background_url %}
+              <div class="map-background"
+                   style="background-image: url('{{ background_url }}');">
+              </div>
+            {% else %}
+              <div class="map-background placeholder">
+                <div class="placeholder-content">
+                  <div class="placeholder-icon">🗺️</div>
+                  <p>Envie uma imagem acima para visualizar aqui.</p>
+                </div>
+              </div>
+            {% endif %}
+
+            <!-- Camada das antenas (exemplo visual) -->
+            <div class="antennas-layer">
+              <div class="antenna" style="left: 18%; top: 30%;"></div>
+              <div class="antenna" style="left: 55%; top: 60%;"></div>
+              <div class="antenna" style="left: 78%; top: 40%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa MQTT / Antenas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Configurar fundo do mapa</h1>
+
+  <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+    <label for="background">Selecione uma imagem (SVG, PNG, JPG):</label>
+    <input type="file" id="background" name="background"
+           accept=".svg,.png,.jpg,.jpeg" required>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <hr>
+
+  <h2>Pré-visualização do mapa</h2>
+
+  <div class="map-container">
+    {% if background_url %}
+      <div class="map-background"
+           style="background-image: url('{{ background_url }}');">
+      </div>
+    {% else %}
+      <div class="map-background placeholder">
+        Nenhuma imagem enviada ainda
+      </div>
+    {% endif %}
+
+    <!-- Camada das antenas (ainda estática / exemplo) -->
+    <div class="antennas-layer">
+      <!-- Exemplo de antena fixa só para mostrar a sobreposição -->
+      <div class="antenna" style="left: 20%; top: 30%;"></div>
+      <div class="antenna" style="left: 60%; top: 70%;"></div>
+    </div>
+  </div>
+
+</body>
+</html>
